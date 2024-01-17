@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" xml:lang="en" lang="en">
+
+<head>
+     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <title
+            th:text="${userProfile.firstName+' '+userProfile.lastName+' - One Page Resume'}">title field</title>
+
+     <style type="text/css">
+        * { margin: 0; padding: 0; }
+        body { font: 16px Helvetica, Sans-Serif; line-height: 24px; background: url(../../../static/profile-templates/2/images/noise.jpg); }
+        .clear { clear: both; }
+        #page-wrap { width: 800px; margin: 40px auto 60px; }
+        #pic { float: right; margin: -30px 0 0 0; }
+        h1 { margin: 0 0 16px 0; padding: 0 0 16px 0; font-size: 42px; font-weight: bold; letter-spacing: -2px; border-bottom: 1px solid #999; }
+        h2 { font-size: 20px; margin: 0 0 6px 0; position: relative; }
+        h2 span { position: absolute; bottom: 0; right: 0; font-style: italic; font-family: Georgia, Serif; font-size: 16px; color: #999; font-weight: normal; }
+        p { margin: 0 0 16px 0; }
+        a { color: #999; text-decoration: none; border-bottom: 1px dotted #999; }
+        a:hover { border-bottom-style: solid; color: black; }
+        ul { margin: 0 0 32px 17px; }
+        #objective { width: 500px; float: left; }
+        #objective p { font-family: Georgia, Serif; font-style: italic; color: #666; }
+        dt { font-style: italic; font-weight: bold; font-size: 18px; text-align: right; padding: 0 26px 0 0; width: 150px; float: left; height: 150px; border-right: 1px solid #999;  }
+        dd { width: 600px; float: right; }
+        dd.clear { float: none; margin: 0; height: 15px; }
+     </style>
+</head>
+
+<body>
+
+    <div id="page-wrap">
+    
+
+        <div id="contact-info" class="vcard">
+        
+            <!-- Microformats! -->
+        
+            <h1 class="fn"><span th:text="${userProfile.firstName}">Joe</span>
+                <span th:text="${userProfile.lastName}"> Bloggs</span>
+            </h1>
+            <p><a th:if="${currentUsersProfile}" href="/edit">Edit</a></p>
+        
+            <p>
+                Cell: <span class="tel" th:text="${userProfile.phone}">555-666-7777</span><br />
+                Email: <a th:text="${userProfile.email}" class="email" href="mailto:${userProfile.email}">greatoldone@lovecraft.com</a>
+            </p>
+        </div>
+                
+        <div id="objective">
+            <p th:text="${userProfile.summary}">
+                I am an outgoing and energetic (ask anybody) young professional, seeking a 
+                career that fits my professional skills, personality, and murderous tendencies. 
+                My squid-like head is a masterful problem solver and inspires fear in who gaze upon it. 
+                I can bring world domination to your organization. 
+            </p>
+        </div>
+        
+        <div class="clear"></div>
+        
+        <dl>
+            <dd class="clear"></dd>
+            
+            <dt class="sectionTitle">Education</dt>
+            <dd class="sectionContent" th:each="education : ${userProfile.educations}">
+                <h2  th:text="${education.qualification}">Qualification</h2>
+                <h4 class="subDetails"><span th:text="${education.college}">College/University></span>---<span th:text="${education.formattedStartDate}">April 2011</span> -<span th:text= "${education.formattedEndDate}">Present</span></h4>
+<!--                <p th:text="${education.summary}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus hendrerit. Curabitur non consequat enim.</p>-->
+
+            </dd>
+            
+            <dd class="clear"></dd>
+            
+            <dt class="sectionTitle">Soft Skills</dt>
+            <dd class="sectionContent" >
+                <ul class="keySkills" th:each="skill : ${userProfile.skills}">
+                    <li th:text="${skill}">A Key Skill</li>
+                </ul>
+            </dd>
+            
+            <dd class="clear"></dd>
+
+            <dt class="sectionTitle">Technical Skills</dt>
+            <dd class="sectionContent" >
+                <ul class="keySkills" th:each="skill : ${userProfile.technicalskills}">
+                    <li th:text="${skill}">A Key Skill</li>
+                </ul>
+            </dd>
+
+            <dd class="clear"></dd>
+
+
+
+            <dt class="sectionTitle">Experience</dt>
+            <dd class="sectionContent" th:each="job:${userProfile.jobs}">
+                <h2 th:text="${job.company} ">Doomsday Cult</h2>
+                <h4 th:text="${job.designation}">Leader/Overlord </h4>
+                  <p class="subDetails"> </li> <span th:text="${job.formattedStartDate}">April 2011</span>-<span th:text="${job.currentJob}? 'Present' : ${job.formattedEndDate} ">Present</span></p>
+                <ul th:each="responsibility : ${job.responsibilities}">
+                    <li th:text="${responsibility}">Responsibility</li>
+                </ul>
+
+            </dd>
+
+            <dd class="clear"></dd>
+            
+<!--            <dt class="sectionTitle">Hobbies</dt>-->
+<!--            <dd class="sectionContent"><ul th:each="hobby:${userProfile.hobbies}">-->
+<!--            <li th:text="${hobby}">Hobby</li>-->
+<!--            </ul>-->
+<!--            </dd>-->
+<!--            <dd class="clear"></dd>-->
+
+            
+            <dd class="clear"></dd>
+        </dl>
+        
+        <div class="clear"></div>
+    
+    </div>
+
+</body>
+
+</html>
